@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog 
+  xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+  xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+  xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd
+        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
+  <changeSet id="CREATE_LOCATION" author="NKTHAN">
+    <createTable tableName="LOCATION">
+      <column name="LOCATION_ID" type="uuid">
+        <constraints primaryKey="true" nullable="false" />
+      </column>
+      <column name="CITY" type="varchar(50)">
+        <constraints nullable="true" />
+      </column>
+      <column name="COUNTRY" type="varchar(50)">
+        <constraints nullable="true" />
+      </column>
+      <column name="CREATE_AT" type="datetime">
+        <constraints nullable="true" />
+      </column>
+      <column name="MODIFIED_AT" type="datetime">
+        <constraints nullable="true" />
+      </column>
+    </createTable>
+  </changeSet>
+ 
+  <changeSet id="CREATE_PRODUCT" author="NKTHAN">
+    <createTable tableName="PRODUCT">
+      <column name="PRODUCT_ID" type="uuid">
+        <constraints primaryKey="true" nullable="false" />
+      </column>
+      <column name="CLASS" type="varchar(50)">
+        <constraints nullable="false" />
+      </column>
+      <column name="INVENTORY" type="varchar(50)"/>
+      <column name="ITEM" type="int"/>
+      <column name="CREATE_AT" type="datetime"/>
+      <column name="MODIFIED_AT" type="datetime"/>
+    </createTable>
+  </changeSet>
+  
+  <changeSet id="CREATE_TIME" author="NKTHAN">
+    <createTable tableName="TIME">
+      <column name="TIME_ID" type="uuid">
+        <constraints primaryKey="true" nullable="false" />
+      </column>
+      <column name="MONTH" type="int">
+        <constraints nullable="false" />
+      </column>
+      <column name="QUARTER" type="int"/>
+      <column name="YEAR" type="int"/>
+      <column name="CREATE_AT" type="datetime"/>
+      <column name="MODIFIED_AT" type="datetime"/>
+    </createTable>
+  </changeSet>
+  <changeSet id="CREATE_SALES" author="NKTHAN">
+    <createTable tableName="SALES">
+      <column name="PRODUCT_ID" type="uuid">
+        <constraints primaryKey="true" nullable="false" />
+      </column>
+      <column name="TIME_ID" type="uuid">
+        <constraints primaryKey="true" nullable="false" />
+      </column>
+      <column name="LOCATION_ID" type="uuid">
+      	<constraints primaryKey="true" nullable="false" />
+      </column>
+      <column name="DOLLARS" type="number"/>
+      <column name="CREATE_AT" type="datetime"/>
+      <column name="MODIFIED_AT" type="datetime"/>
+    </createTable>
+  </changeSet>
+ 
+  <changeSet id="tag-1.0" author="sheng.w">
+    <tagDatabase tag="1.0" />
+  </changeSet>
+
+</databaseChangeLog>
