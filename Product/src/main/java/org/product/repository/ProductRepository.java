@@ -13,7 +13,7 @@ import org.springframework.stereotype.Repository;
 public interface ProductRepository extends CassandraRepository<Product, UUID>{
 	
 	@Query("SELECT * FROM product WHERE item = ?0 ALLOW FILTERING")
-	public List<Product> findByFirstname(int item);
+	public List<Product> findByItem(int item);
 	
 	
 //	public ResponseEntity<?> addProduct(@RequestBody Product product) {

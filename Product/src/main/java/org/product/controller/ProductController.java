@@ -1,8 +1,11 @@
 package org.product.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import org.product.exception.BadRequestException;
 import org.product.jpaModel.Product;
+import org.product.logger.LoggerUtil;
 //import org.product.model.Product;
 //import org.product.repository.ProductRepository;
 import org.product.service.JpaProductService;
@@ -38,6 +41,8 @@ public class ProductController extends BaseController {
         LOGGER.info("This is INFO");
         LOGGER.warn("This is WARN");
         LOGGER.error("This is ERROR");
+        LoggerUtil.info("list product of cassandra databse");
+       // if(1==1)throw new BadRequestException();
 		return productService.getAllProduct();
 	}
 	
@@ -61,6 +66,25 @@ public class ProductController extends BaseController {
 	@RequestMapping(value = "/products", method = RequestMethod.GET)
 	public List<Product> showAll() {
 		return jpaProductService.getAllProduct();
+	}
+	//Import data into postgresql
+	
+	@RequestMapping(value="/productsJPA/all",method=RequestMethod.POST)
+	public void saveAllProduct(){
+		List<org.product.model.Product> getAllProduct = productService.getAllProduct();
+		System.out.println("================================================================");
+		System.out.println(getAllProduct.size());
+		List<Product> listProductJPA = new ArrayList<Product>();
+		Product productJPA=new Product();
+		for(org.product.model.Product product :getAllProduct) {
+			productJPA.setProduct_id(product.getProduct_id());
+			productJPA.setItem(product.getItem());
+			productJPA.setInventory(product.getInventory());
+			productJPA.setClassd(product.getClassd());
+			//productJPA.setItem(product.getItem());
+			jpaProductService.save(productJPA);
+		}
+		
 	}
 	
 }

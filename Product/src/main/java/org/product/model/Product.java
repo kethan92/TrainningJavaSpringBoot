@@ -83,6 +83,14 @@ public class Product {
 	public void setModified_at(Timestamp modified_at) {
 		this.modified_at = modified_at;
 	}
+
+	public String getClassd() {
+		return classd;
+	}
+
+	public void setClassd(String classd) {
+		this.classd = classd;
+	}
 	
 
 	

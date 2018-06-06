@@ -23,11 +23,12 @@ public class ProductService extends BaseService {
 //		return productRepository.findOne(id);
 //	}
 	public List<Product> getAllProduct(){
+		logger.info("++++++++++++++++++++THAN+++++++++++++++++++");
 		return productRepository.findAll();
 	}
 	
 	public List<Product> getProductByItem(int item){
-		return productRepository.findByFirstname(item);
+		return productRepository.findByItem(item);
 	}
 	
 	public Product addProduct(Product product) {
