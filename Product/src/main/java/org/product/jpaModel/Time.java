@@ -1,33 +1,44 @@
-package org.product.model;
+package org.product.jpaModel;
 
 import java.sql.Timestamp;
+import java.util.List;
 import java.util.UUID;
 
-import org.springframework.data.cassandra.core.mapping.Column;
-import org.springframework.data.cassandra.core.mapping.PrimaryKey;
-import org.springframework.data.cassandra.core.mapping.Table;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
 
-@Table("time")
+
+
+@Entity
+@Table(name="Time")
 public class Time {
-	@PrimaryKey
+
+	@Id
 	private UUID time_id;
 
-	@Column("month")
+	@Column(name="month")
 	private Integer month;
 	
-	@Column("quarter")
+	@Column(name="quarter")
 	private Integer quarter;
 	
-	@Column("year")
+	@Column(name="year")
 	private Integer year;
 	
-	@Column("create_at")
+	@Column(name="create_at")
 	private Timestamp create_at;
 	
 	//@org.springframework.data.cassandra.core.mapping.Column(value="modified_at")
-	@Column("modified_at")
+	@Column(name="modified_at")
 	private Timestamp modified_at;
+	
+	//bi-directional many-to-one association to Sale
+	@javax.persistence.OneToMany(fetch = FetchType.LAZY)
+	private List<Sales> sales;
 
 	public UUID getTime_id() {
 		return time_id;
@@ -76,6 +87,4 @@ public class Time {
 	public void setModified_at(Timestamp modified_at) {
 		this.modified_at = modified_at;
 	}
-	
-	
 }

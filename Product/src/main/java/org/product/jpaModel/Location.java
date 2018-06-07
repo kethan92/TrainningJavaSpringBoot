@@ -12,59 +12,66 @@ import javax.persistence.Table;
 
 
 
+
 @Entity
-@Table(name="product")
-public class Product {
+@Table(name="location")
+public class Location {
+
 	@Id
-	private UUID product_id;
-	@Column(name="class")
-	private String classd;
-	private String inventory;
-	private Integer item;
+	private UUID location_id;
+	
+	@Column(name="city")
+	private String city;
+	
+	@Column(name="country")
+	private String country;
+	
+	@Column(name="create_at")
 	private Timestamp create_at;
+	
+	@Column(name="modified_at")
 	private Timestamp modified_at;
 	
-	//bi-directional many-to-one association to Sale
 	@javax.persistence.OneToMany(fetch = FetchType.LAZY)
 	private List<Sales> sales;
-	
-	
-	public UUID getProduct_id() {
-		return product_id;
+
+	public UUID getLocation_id() {
+		return location_id;
 	}
-	public void setProduct_id(UUID product_id) {
-		this.product_id = product_id;
+
+	public void setLocation_id(UUID location_id) {
+		this.location_id = location_id;
 	}
-	public String getClassd() {
-		return classd;
+
+	public String getCity() {
+		return city;
 	}
-	public void setClassd(String classd) {
-		this.classd = classd;
+
+	public void setCity(String city) {
+		this.city = city;
 	}
-	public String getInventory() {
-		return inventory;
+
+	public String getCountry() {
+		return country;
 	}
-	public void setInventory(String inventory) {
-		this.inventory = inventory;
+
+	public void setCountry(String country) {
+		this.country = country;
 	}
-	public Integer getItem() {
-		return item;
-	}
-	public void setItem(Integer item) {
-		this.item = item;
-	}
+
 	public Timestamp getCreate_at() {
 		return create_at;
 	}
+
 	public void setCreate_at(Timestamp create_at) {
 		this.create_at = create_at;
 	}
+
 	public Timestamp getModified_at() {
 		return modified_at;
 	}
+
 	public void setModified_at(Timestamp modified_at) {
 		this.modified_at = modified_at;
 	}
-	
-	
 }

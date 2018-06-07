@@ -1,13 +1,12 @@
 package org.product.repository;
 
-import org.product.jpaModel.Product;
+import java.util.UUID;
+
+import org.product.jpaModel.Time;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import java.util.UUID;
-
 @Repository
-public interface JpaProductRepository extends JpaRepository<Product, UUID> {
+public interface JpaTimeRepository extends JpaRepository<Time, UUID> {
 
-	
 }
