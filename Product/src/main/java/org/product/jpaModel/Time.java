@@ -1,90 +1,161 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package org.product.jpaModel;
 
-import java.sql.Timestamp;
-import java.util.List;
-import java.util.UUID;
-
+import java.io.Serializable;
+import java.util.Collection;
+import java.util.Date;
+import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.Lob;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+import javax.validation.constraints.NotNull;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
-
-
-
+/**
+ *
+ * @author nkthan
+ */
 @Entity
-@Table(name="Time")
-public class Time {
+@Table(name = "time")
+@XmlRootElement
+@NamedQueries({
+    @NamedQuery(name = "Time.findAll", query = "SELECT t FROM Time t")
+    , @NamedQuery(name = "Time.findByMonth", query = "SELECT t FROM Time t WHERE t.month = :month")
+    , @NamedQuery(name = "Time.findByQuarter", query = "SELECT t FROM Time t WHERE t.quarter = :quarter")
+    , @NamedQuery(name = "Time.findByYear", query = "SELECT t FROM Time t WHERE t.year = :year")
+    , @NamedQuery(name = "Time.findByCreateAt", query = "SELECT t FROM Time t WHERE t.createAt = :createAt")
+    , @NamedQuery(name = "Time.findByModifiedAt", query = "SELECT t FROM Time t WHERE t.modifiedAt = :modifiedAt")})
+public class Time implements Serializable {
 
-	@Id
-	private UUID time_id;
+    private static final long serialVersionUID = 1L;
+    @Id
+    @Basic(optional = false)
+    @NotNull
+    @Lob
+    @Column(name = "time_id")
+    private Object timeId;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "month")
+    private int month;
+    @Column(name = "quarter")
+    private Integer quarter;
+    @Column(name = "year")
+    private Integer year;
+    @Column(name = "create_at")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date createAt;
+    @Column(name = "modified_at")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date modifiedAt;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "time")
+    private Collection<Sales> salesCollection;
 
-	@Column(name="month")
-	private Integer month;
-	
-	@Column(name="quarter")
-	private Integer quarter;
-	
-	@Column(name="year")
-	private Integer year;
-	
-	@Column(name="create_at")
-	private Timestamp create_at;
-	
-	//@org.springframework.data.cassandra.core.mapping.Column(value="modified_at")
-	@Column(name="modified_at")
-	private Timestamp modified_at;
-	
-	//bi-directional many-to-one association to Sale
-	@javax.persistence.OneToMany(fetch = FetchType.LAZY)
-	private List<Sales> sales;
+    public Time() {
+    }
 
-	public UUID getTime_id() {
-		return time_id;
-	}
+    public Time(Object timeId) {
+        this.timeId = timeId;
+    }
 
-	public void setTime_id(UUID time_id) {
-		this.time_id = time_id;
-	}
+    public Time(Object timeId, int month) {
+        this.timeId = timeId;
+        this.month = month;
+    }
 
-	public Integer getMonth() {
-		return month;
-	}
+    public Object getTimeId() {
+        return timeId;
+    }
 
-	public void setMonth(Integer month) {
-		this.month = month;
-	}
+    public void setTimeId(Object timeId) {
+        this.timeId = timeId;
+    }
 
-	public Integer getQuarter() {
-		return quarter;
-	}
+    public int getMonth() {
+        return month;
+    }
 
-	public void setQuarter(Integer quarter) {
-		this.quarter = quarter;
-	}
+    public void setMonth(int month) {
+        this.month = month;
+    }
 
-	public Integer getYear() {
-		return year;
-	}
+    public Integer getQuarter() {
+        return quarter;
+    }
 
-	public void setYear(Integer year) {
-		this.year = year;
-	}
+    public void setQuarter(Integer quarter) {
+        this.quarter = quarter;
+    }
 
-	public Timestamp getCreate_at() {
-		return create_at;
-	}
+    public Integer getYear() {
+        return year;
+    }
 
-	public void setCreate_at(Timestamp create_at) {
-		this.create_at = create_at;
-	}
+    public void setYear(Integer year) {
+        this.year = year;
+    }
 
-	public Timestamp getModified_at() {
-		return modified_at;
-	}
+    public Date getCreateAt() {
+        return createAt;
+    }
 
-	public void setModified_at(Timestamp modified_at) {
-		this.modified_at = modified_at;
-	}
+    public void setCreateAt(Date createAt) {
+        this.createAt = createAt;
+    }
+
+    public Date getModifiedAt() {
+        return modifiedAt;
+    }
+
+    public void setModifiedAt(Date modifiedAt) {
+        this.modifiedAt = modifiedAt;
+    }
+
+    @XmlTransient
+    public Collection<Sales> getSalesCollection() {
+        return salesCollection;
+    }
+
+    public void setSalesCollection(Collection<Sales> salesCollection) {
+        this.salesCollection = salesCollection;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 0;
+        hash += (timeId != null ? timeId.hashCode() : 0);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object object) {
+        // TODO: Warning - this method won't work in the case the id fields are not set
+        if (!(object instanceof Time)) {
+            return false;
+        }
+        Time other = (Time) object;
+        if ((this.timeId == null && other.timeId != null) || (this.timeId != null && !this.timeId.equals(other.timeId))) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public String toString() {
+        return "org.product.jpaModel.Time[ timeId=" + timeId + " ]";
+    }
+    
 }

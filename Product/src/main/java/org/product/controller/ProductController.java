@@ -70,20 +70,24 @@ public class ProductController extends BaseController {
 	//Import data into postgresql
 	
 	@RequestMapping(value="/productsJPA/all",method=RequestMethod.POST)
-	public void saveAllProduct(){
+	public List<org.product.model.Product> saveAllProduct(){
 		List<org.product.model.Product> getAllProduct = productService.getAllProduct();
 		System.out.println("================================================================");
 		System.out.println(getAllProduct.size());
 		List<Product> listProductJPA = new ArrayList<Product>();
 		Product productJPA=new Product();
 		for(org.product.model.Product product :getAllProduct) {
-			productJPA.setProduct_id(product.getProduct_id());
+			productJPA.setProductId(product.getProduct_id());
+//			System.out.println("--------------------------------------------------------");
+//			System.out.println(product.getProduct_id());
+			LOGGER.debug("THONG TIN PRODCUT ID",product.getProduct_id());
 			productJPA.setItem(product.getItem());
 			productJPA.setInventory(product.getInventory());
-			productJPA.setClassd(product.getClassd());
+			productJPA.setClass1(product.getClassd());
 			//productJPA.setItem(product.getItem());
 			jpaProductService.save(productJPA);
 		}
+		return productService.getAllProduct();
 		
 	}
 	

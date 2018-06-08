@@ -1,77 +1,146 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package org.product.jpaModel;
 
-import java.sql.Timestamp;
-import java.util.List;
-import java.util.UUID;
-
+import java.io.Serializable;
+import java.util.Collection;
+import java.util.Date;
+import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.Lob;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
-
-
-
+/**
+ *
+ * @author nkthan
+ */
 @Entity
-@Table(name="location")
-public class Location {
+@Table(name = "location")
+@XmlRootElement
+@NamedQueries({
+    @NamedQuery(name = "Location.findAll", query = "SELECT l FROM Location l")
+    , @NamedQuery(name = "Location.findByCity", query = "SELECT l FROM Location l WHERE l.city = :city")
+    , @NamedQuery(name = "Location.findByCountry", query = "SELECT l FROM Location l WHERE l.country = :country")
+    , @NamedQuery(name = "Location.findByCreateAt", query = "SELECT l FROM Location l WHERE l.createAt = :createAt")
+    , @NamedQuery(name = "Location.findByModifiedAt", query = "SELECT l FROM Location l WHERE l.modifiedAt = :modifiedAt")})
+public class Location implements Serializable {
 
-	@Id
-	private UUID location_id;
-	
-	@Column(name="city")
-	private String city;
-	
-	@Column(name="country")
-	private String country;
-	
-	@Column(name="create_at")
-	private Timestamp create_at;
-	
-	@Column(name="modified_at")
-	private Timestamp modified_at;
-	
-	@javax.persistence.OneToMany(fetch = FetchType.LAZY)
-	private List<Sales> sales;
+    private static final long serialVersionUID = 1L;
+    @Id
+    @Basic(optional = false)
+    @NotNull
+    @Lob
+    @Column(name = "location_id")
+    private Object locationId;
+    @Size(max = 50)
+    @Column(name = "city")
+    private String city;
+    @Size(max = 50)
+    @Column(name = "country")
+    private String country;
+    @Column(name = "create_at")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date createAt;
+    @Column(name = "modified_at")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date modifiedAt;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "location")
+    private Collection<Sales> salesCollection;
 
-	public UUID getLocation_id() {
-		return location_id;
-	}
+    public Location() {
+    }
 
-	public void setLocation_id(UUID location_id) {
-		this.location_id = location_id;
-	}
+    public Location(Object locationId) {
+        this.locationId = locationId;
+    }
 
-	public String getCity() {
-		return city;
-	}
+    public Object getLocationId() {
+        return locationId;
+    }
 
-	public void setCity(String city) {
-		this.city = city;
-	}
+    public void setLocationId(Object locationId) {
+        this.locationId = locationId;
+    }
 
-	public String getCountry() {
-		return country;
-	}
+    public String getCity() {
+        return city;
+    }
 
-	public void setCountry(String country) {
-		this.country = country;
-	}
+    public void setCity(String city) {
+        this.city = city;
+    }
 
-	public Timestamp getCreate_at() {
-		return create_at;
-	}
+    public String getCountry() {
+        return country;
+    }
 
-	public void setCreate_at(Timestamp create_at) {
-		this.create_at = create_at;
-	}
+    public void setCountry(String country) {
+        this.country = country;
+    }
 
-	public Timestamp getModified_at() {
-		return modified_at;
-	}
+    public Date getCreateAt() {
+        return createAt;
+    }
 
-	public void setModified_at(Timestamp modified_at) {
-		this.modified_at = modified_at;
-	}
+    public void setCreateAt(Date createAt) {
+        this.createAt = createAt;
+    }
+
+    public Date getModifiedAt() {
+        return modifiedAt;
+    }
+
+    public void setModifiedAt(Date modifiedAt) {
+        this.modifiedAt = modifiedAt;
+    }
+
+    @XmlTransient
+    public Collection<Sales> getSalesCollection() {
+        return salesCollection;
+    }
+
+    public void setSalesCollection(Collection<Sales> salesCollection) {
+        this.salesCollection = salesCollection;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 0;
+        hash += (locationId != null ? locationId.hashCode() : 0);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object object) {
+        // TODO: Warning - this method won't work in the case the id fields are not set
+        if (!(object instanceof Location)) {
+            return false;
+        }
+        Location other = (Location) object;
+        if ((this.locationId == null && other.locationId != null) || (this.locationId != null && !this.locationId.equals(other.locationId))) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public String toString() {
+        return "org.product.jpaModel.Location[ locationId=" + locationId + " ]";
+    }
+    
 }

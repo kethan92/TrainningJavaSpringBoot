@@ -55,7 +55,7 @@ public class TimeController {
 		//List<org.product.jpaModel.Location> listLocationJPA = new ArrayList<org.product.jpaModel.Location>();
 		org.product.jpaModel.Time TimeJPA=new org.product.jpaModel.Time();
 		for(Time time :listAllTime) {
-			TimeJPA.setTime_id(time.getTime_id());
+			TimeJPA.setTimeId(time.getTime_id());
 			TimeJPA.setMonth(time.getMonth());
 			TimeJPA.setQuarter(time.getQuarter());
 			TimeJPA.setYear(time.getYear());

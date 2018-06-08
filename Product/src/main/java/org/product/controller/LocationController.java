@@ -54,7 +54,7 @@ public class LocationController extends BaseController {
 		//List<org.product.jpaModel.Location> listLocationJPA = new ArrayList<org.product.jpaModel.Location>();
 		org.product.jpaModel.Location LocationJPA=new org.product.jpaModel.Location();
 		for(Location location :listAllLocation) {
-			LocationJPA.setLocation_id(location.getLocation_id());
+			LocationJPA.setLocationId(location.getLocation_id());
 			LocationJPA.setCity(location.getCity());
 			LocationJPA.setCountry(location.getCountry());
 			
