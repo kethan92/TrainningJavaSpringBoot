@@ -8,6 +8,8 @@ package org.product.jpaModel;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.Date;
+import java.util.UUID;
+
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -42,11 +44,11 @@ public class Location implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
-    @Basic(optional = false)
+    //@Basic(optional = false)
     @NotNull
-    @Lob
+    //@Lob
     @Column(name = "location_id")
-    private Object locationId;
+    private UUID locationId;
     @Size(max = 50)
     @Column(name = "city")
     private String city;
@@ -65,15 +67,15 @@ public class Location implements Serializable {
     public Location() {
     }
 
-    public Location(Object locationId) {
-        this.locationId = locationId;
-    }
+//    public Location(Object locationId) {
+//        this.locationId = locationId;
+//    }
 
-    public Object getLocationId() {
+    public UUID getLocationId() {
         return locationId;
     }
 
-    public void setLocationId(Object locationId) {
+    public void setLocationId(UUID locationId) {
         this.locationId = locationId;
     }
 

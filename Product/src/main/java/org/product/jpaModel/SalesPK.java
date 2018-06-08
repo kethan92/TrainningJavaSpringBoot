@@ -6,6 +6,8 @@
 package org.product.jpaModel;
 
 import java.io.Serializable;
+import java.util.UUID;
+
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
@@ -19,26 +21,26 @@ import javax.validation.constraints.NotNull;
 @Embeddable
 public class SalesPK implements Serializable {
 
-    @Basic(optional = false)
+   // @Basic(optional = false)
     @NotNull
-    @Lob
+   // @Lob
     @Column(name = "product_id")
-    private Object productId;
-    @Basic(optional = false)
+    private UUID productId;
+   // @Basic(optional = false)
     @NotNull
-    @Lob
+   // @Lob
     @Column(name = "time_id")
-    private Object timeId;
-    @Basic(optional = false)
+    private UUID timeId;
+   // @Basic(optional = false)
     @NotNull
-    @Lob
+   // @Lob
     @Column(name = "location_id")
-    private Object locationId;
+    private UUID locationId;
 
     public SalesPK() {
     }
 
-    public SalesPK(Object productId, Object timeId, Object locationId) {
+    public SalesPK(UUID productId, UUID timeId, UUID locationId) {
         this.productId = productId;
         this.timeId = timeId;
         this.locationId = locationId;
@@ -48,7 +50,7 @@ public class SalesPK implements Serializable {
         return productId;
     }
 
-    public void setProductId(Object productId) {
+    public void setProductId(UUID productId) {
         this.productId = productId;
     }
 
@@ -56,7 +58,7 @@ public class SalesPK implements Serializable {
         return timeId;
     }
 
-    public void setTimeId(Object timeId) {
+    public void setTimeId(UUID timeId) {
         this.timeId = timeId;
     }
 
@@ -64,7 +66,7 @@ public class SalesPK implements Serializable {
         return locationId;
     }
 
-    public void setLocationId(Object locationId) {
+    public void setLocationId(UUID locationId) {
         this.locationId = locationId;
     }
 

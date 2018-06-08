@@ -8,6 +8,8 @@ package org.product.jpaModel;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.Date;
+import java.util.UUID;
+
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -42,11 +44,11 @@ public class Time implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
-    @Basic(optional = false)
+   // @Basic(optional = false)
     @NotNull
-    @Lob
+    //@Lob
     @Column(name = "time_id")
-    private Object timeId;
+    private UUID timeId;
     @Basic(optional = false)
     @NotNull
     @Column(name = "month")
@@ -67,20 +69,20 @@ public class Time implements Serializable {
     public Time() {
     }
 
-    public Time(Object timeId) {
-        this.timeId = timeId;
-    }
+//    public Time(Object timeId) {
+//        this.timeId = timeId;
+//    }
 
-    public Time(Object timeId, int month) {
-        this.timeId = timeId;
-        this.month = month;
-    }
+//    public Time(Object timeId, int month) {
+//        this.timeId = timeId;
+//        this.month = month;
+//    }
 
-    public Object getTimeId() {
+    public UUID getTimeId() {
         return timeId;
     }
 
-    public void setTimeId(Object timeId) {
+    public void setTimeId(UUID timeId) {
         this.timeId = timeId;
     }
 

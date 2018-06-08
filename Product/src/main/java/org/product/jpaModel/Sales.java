@@ -6,6 +6,7 @@
 package org.product.jpaModel;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.Date;
 import javax.persistence.Column;
@@ -38,7 +39,7 @@ public class Sales implements Serializable {
     @EmbeddedId
     protected SalesPK salesPK;
     @Column(name = "dollars")
-    private BigInteger dollars;
+    private BigDecimal dollars;
     @Column(name = "create_at")
     @Temporal(TemporalType.TIMESTAMP)
     private Date createAt;
@@ -58,13 +59,13 @@ public class Sales implements Serializable {
     public Sales() {
     }
 
-    public Sales(SalesPK salesPK) {
-        this.salesPK = salesPK;
-    }
-
-    public Sales(Object productId, Object timeId, Object locationId) {
-        this.salesPK = new SalesPK(productId, timeId, locationId);
-    }
+//    public Sales(SalesPK salesPK) {
+//        this.salesPK = salesPK;
+//    }
+//
+//    public Sales(Object productId, Object timeId, Object locationId) {
+//        this.salesPK = new SalesPK(productId, timeId, locationId);
+//    }
 
     public SalesPK getSalesPK() {
         return salesPK;
@@ -74,11 +75,11 @@ public class Sales implements Serializable {
         this.salesPK = salesPK;
     }
 
-    public BigInteger getDollars() {
+    public BigDecimal getDollars() {
         return dollars;
     }
 
-    public void setDollars(BigInteger dollars) {
+    public void setDollars(BigDecimal dollars) {
         this.dollars = dollars;
     }
 
