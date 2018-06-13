@@ -1,6 +1,7 @@
 package org.product.repository;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 import org.product.model.Product;
@@ -19,6 +20,7 @@ public interface ProductRepository extends CassandraRepository<Product, UUID>{
 //	public ResponseEntity<?> addProduct(@RequestBody Product product) {
 //	
 //	}
+	
 	
 
 }

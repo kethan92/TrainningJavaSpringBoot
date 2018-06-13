@@ -34,26 +34,17 @@ public class SaleController {
 	}
 	
 	
-	@RequestMapping(value="/salesJPA/all", method=RequestMethod.POST)
-	public List<Sales> saveAllSales(){
+	@RequestMapping(value="/sales/all", method=RequestMethod.POST)
+	public void saveAllSales(){
+//		SalesPK salesId=null;
 		List<Sales> getAllSales = saleService.getAllSales();
-		System.out.println("================================================================");
-		System.out.println(getAllSales.size());
-		List<org.product.jpaModel.Sales> listProductJPA = new ArrayList<org.product.jpaModel.Sales>();
-		org.product.jpaModel.Sales salesJPA=new org.product.jpaModel.Sales();
-		for(Sales sales :getAllSales) {
-			salesJPA.setSalesPK(new SalesPK(sales.getProduct_id(),sales.getTime_id(),sales.getLocation_id()));
-//			System.out.println("--------------------------------------------------------");
-//			System.out.println(product.getProduct_id());
-			//LOGGER.debug("THONG TIN PRODCUT ID",product.getProduct_id());
-			salesJPA.setDollars(sales.getDollars());
-			//Location getLocation
-			//salesJPA.setLocation(new Location(sales.getLocation_id()));
-			//salesJPA.setClass1(product.getClassd());
-			//productJPA.setItem(product.getItem());
-			jpaSaleService.save(salesJPA);
-		}
-		return saleService.getAllSales();
 		
+		jpaSaleService.addSaleTaltol(getAllSales);
+		
+	}
+	// Get sale from PostGre
+	@RequestMapping(value = "/salesPostgresql", method = RequestMethod.GET)
+	public List<org.product.jpaModel.Sales> show(){
+		return this.jpaSaleService.getAllSales();
 	}
 }

@@ -14,6 +14,7 @@ import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.Lob;
 import javax.persistence.NamedQueries;
@@ -25,6 +26,8 @@ import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 /**
  *
@@ -63,7 +66,7 @@ public class Time implements Serializable {
     @Column(name = "modified_at")
     @Temporal(TemporalType.TIMESTAMP)
     private Date modifiedAt;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "time")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "time",fetch = FetchType.EAGER)
     private Collection<Sales> salesCollection;
 
     public Time() {
@@ -126,7 +129,8 @@ public class Time implements Serializable {
         this.modifiedAt = modifiedAt;
     }
 
-    @XmlTransient
+   // @XmlTransient
+    @JsonIgnore
     public Collection<Sales> getSalesCollection() {
         return salesCollection;
     }
