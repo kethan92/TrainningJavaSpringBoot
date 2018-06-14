@@ -64,7 +64,7 @@ public class Location implements Serializable {
     @Column(name = "modified_at")
     @Temporal(TemporalType.TIMESTAMP)
     private Date modifiedAt;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "location",fetch = FetchType.EAGER)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "location",fetch = FetchType.LAZY)
     private Collection<Sales> salesCollection;
 
     public Location() {

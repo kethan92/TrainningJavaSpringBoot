@@ -66,7 +66,7 @@ public class Time implements Serializable {
     @Column(name = "modified_at")
     @Temporal(TemporalType.TIMESTAMP)
     private Date modifiedAt;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "time",fetch = FetchType.EAGER)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "time",fetch = FetchType.LAZY)
     private Collection<Sales> salesCollection;
 
     public Time() {

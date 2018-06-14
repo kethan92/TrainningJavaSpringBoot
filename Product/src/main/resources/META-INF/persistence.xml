@@ -6,6 +6,10 @@
     <class>org.product.jpaModel.Sales</class>
     <class>org.product.jpaModel.Time</class>
     <class>org.product.jpaModel.Product</class>
+    <class>org.product.jpaModel.UserRole</class>
+    <class>org.product.jpaModel.AppUser</class>
+    <class>org.product.jpaModel.AppRole</class>
+    <class>org.product.jpaModel.PersistentLogins</class>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:postgresql://localhost:5432/ManageProduct"/>
       <property name="javax.persistence.jdbc.user" value="postgres"/>

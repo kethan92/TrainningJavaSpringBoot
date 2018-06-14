@@ -11,7 +11,7 @@ import java.util.logging.Level;
 import java.util.logging.LogRecord;
 import java.util.logging.Logger;
 
-public class LoggerUtil {
+public class LoggerUtil  {
 
 	public static String SPACE_STRING = " ";
 	public static String LINE_BREAK = "\n";

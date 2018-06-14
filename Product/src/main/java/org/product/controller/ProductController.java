@@ -42,7 +42,7 @@ public class ProductController extends BaseController {
         LOGGER.warn("This is WARN");
         LOGGER.error("This is ERROR");
         LoggerUtil.info("list product of cassandra databse");
-       // if(1==1)throw new BadRequestException();
+       // if(1==1)throw new BadRequestException();             
 		return productService.getAllProduct();
 	}
 	

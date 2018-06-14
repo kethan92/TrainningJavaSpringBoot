@@ -50,10 +50,10 @@ public class Sales implements Serializable {
     @Temporal(TemporalType.TIMESTAMP)
     private Date modifiedAt;
     @JoinColumn(name = "location_id", referencedColumnName = "location_id", insertable = false, updatable = false)
-    @ManyToOne(optional = false)
+    @ManyToOne(optional = false,fetch = FetchType.LAZY)
     private Location location;
     @JoinColumn(name = "product_id", referencedColumnName = "product_id", insertable = false, updatable = false)
-    @ManyToOne(optional = false)
+    @ManyToOne(optional = false,fetch = FetchType.LAZY)
     private Product product;
     @JoinColumn(name = "time_id", referencedColumnName = "time_id", insertable = false, updatable = false)
     @ManyToOne(fetch = FetchType.LAZY)

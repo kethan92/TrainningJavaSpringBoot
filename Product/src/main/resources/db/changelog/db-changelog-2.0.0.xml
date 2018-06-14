@@ -42,6 +42,18 @@
  	referencedColumnNames="TIME_ID" onDelete="CASCADE" onUpdate="CASCADE" />
  </changeSet>
  
+ <!-- add primary key -->
+ <changeSet id="add-fk-between-user-and-userrole" author="NKTHAN">
+ 	<addForeignKeyConstraint constraintName="fk_user_userrole" baseTableName="user_role" 
+ 	baseColumnNames="user_id" referencedTableName="user" 
+ 	referencedColumnNames="user_id" onDelete="CASCADE" onUpdate="CASCADE" />
+ </changeSet>
+  <changeSet id="add-fk-between-role-and-userrole" author="NKTHAN">
+ 	<addForeignKeyConstraint constraintName="fk_role_userrole" baseTableName="user_role" 
+ 	baseColumnNames="role_id" referencedTableName="role" 
+ 	referencedColumnNames="role_id" onDelete="CASCADE" onUpdate="CASCADE" />
+ </changeSet>
+ 
  
  <changeSet id="tag-1.2" author="NKTHAN">
     <tagDatabase tag="1.2" />
