@@ -11,6 +11,7 @@ import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -21,17 +22,15 @@ import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 /**
  *
  * @author nkthan
  */
 @Entity
 @Table(name = "app_role")
-@XmlRootElement
-@NamedQueries({
-    @NamedQuery(name = "AppRole.findAll", query = "SELECT a FROM AppRole a")
-    , @NamedQuery(name = "AppRole.findByRoleId", query = "SELECT a FROM AppRole a WHERE a.roleId = :roleId")
-    , @NamedQuery(name = "AppRole.findByRoleName", query = "SELECT a FROM AppRole a WHERE a.roleName = :roleName")})
+
 public class AppRole implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -45,7 +44,7 @@ public class AppRole implements Serializable {
     @Size(min = 1, max = 30)
     @Column(name = "role_name")
     private String roleName;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "roleId")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "roleId",fetch = FetchType.LAZY)
     private Collection<UserRole> userRoleCollection;
 
     public AppRole() {
@@ -76,7 +75,7 @@ public class AppRole implements Serializable {
         this.roleName = roleName;
     }
 
-    @XmlTransient
+    @JsonIgnore
     public Collection<UserRole> getUserRoleCollection() {
         return userRoleCollection;
     }

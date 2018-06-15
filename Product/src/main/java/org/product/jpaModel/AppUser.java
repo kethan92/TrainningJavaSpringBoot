@@ -30,13 +30,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
  */
 @Entity
 @Table(name = "app_user")
-@XmlRootElement
-@NamedQueries({
-    @NamedQuery(name = "AppUser.findAll", query = "SELECT a FROM AppUser a")
-    , @NamedQuery(name = "AppUser.findByUserId", query = "SELECT a FROM AppUser a WHERE a.userId = :userId")
-    , @NamedQuery(name = "AppUser.findByUserName", query = "SELECT a FROM AppUser a WHERE a.userName = :userName")
-    , @NamedQuery(name = "AppUser.findByEncrytedPassword", query = "SELECT a FROM AppUser a WHERE a.encrytedPassword = :encrytedPassword")
-    , @NamedQuery(name = "AppUser.findByEnabled", query = "SELECT a FROM AppUser a WHERE a.enabled = :enabled")})
+
 public class AppUser implements Serializable {
 
     private static final long serialVersionUID = 1L;

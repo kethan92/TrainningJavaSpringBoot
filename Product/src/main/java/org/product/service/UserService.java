@@ -15,5 +15,10 @@ public class UserService {
 	public List<AppUser> getAllUser(){
 		return this.userRepository.findAll();
 	}
+	
+	
+	public AppUser findByAccount(String username) {
+		return this.userRepository.findUserAccount(username);
+	}
 
 }
