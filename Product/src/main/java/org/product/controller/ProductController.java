@@ -1,8 +1,10 @@
 package org.product.controller;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
+import org.eclipse.persistence.jpa.jpql.parser.DateTime;
 import org.product.exception.BadRequestException;
 import org.product.jpaModel.Product;
 import org.product.logger.LoggerUtil;
@@ -84,6 +86,10 @@ public class ProductController extends BaseController {
 			productJPA.setItem(product.getItem());
 			productJPA.setInventory(product.getInventory());
 			productJPA.setClass1(product.getClassd());
+			Date date = new java.util.Date(System.currentTimeMillis());
+			//DateTime dt=new DateTime(date.getTime());
+			productJPA.setCreateAt(date);
+			productJPA.setModifiedAt(date);
 			//productJPA.setItem(product.getItem());
 			jpaProductService.save(productJPA);
 		}
