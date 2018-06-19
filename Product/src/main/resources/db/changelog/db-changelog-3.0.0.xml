@@ -7,15 +7,17 @@
   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd
         http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
 
- 
-  <include file="db/changelog/db-changelog-1.0.0.xml"/>
-   
 
-  <include file="db/changelog/db-changelog-2.0.0.xml"/>
-  
-  
-  <include file="db/changelog/db-changelog-3.0.0.xml"/>
-  
-  <include file="db/changelog/script.sql"/>
+
+<changeSet author="nkthan" id="addUniqueConstraint">
+    <addUniqueConstraint
+            columnNames="product_id, time_id, location_id"
+            constraintName="const_name"
+            deferrable="true"
+            disabled="true"
+            initiallyDeferred="true"
+            schemaName="public"
+            tableName="sales" />
+</changeSet>
 
 </databaseChangeLog>

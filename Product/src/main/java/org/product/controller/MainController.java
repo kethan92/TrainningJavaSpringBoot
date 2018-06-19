@@ -2,7 +2,10 @@ package org.product.controller;
 
 import java.security.Principal;
 
+import org.product.logger.LoggerUtil;
 import org.product.util.WebUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,9 +14,15 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.security.core.Authentication;
 
 @Controller
-public class MainController {
+public class MainController extends BaseController {
+	private final Logger logger = LoggerFactory.getLogger(this.getClass());
+	
+	
+	
 	@RequestMapping(value = { "/", "/welcome" }, method = RequestMethod.GET)
     public String welcomePage(Model model) {
+		
+		LoggerUtil.info(logger,"Welcome page");
         model.addAttribute("title", "Welcome");
         model.addAttribute("message", "This is welcome page!");
         return "welcomePage";
@@ -33,6 +42,7 @@ public class MainController {
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public String loginPage(Model model) {
  
+    	LoggerUtil.debug(logger, "Welcome page Login");
         return "loginPage";
     }
  

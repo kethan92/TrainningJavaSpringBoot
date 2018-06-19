@@ -13,145 +13,53 @@ import java.util.logging.Logger;
 
 public class LoggerUtil  {
 
-	public static String SPACE_STRING = " ";
-	public static String LINE_BREAK = "\n";
-	public static String LINE_SEPARATOR = System.getProperty("line.separator");
 
-	/**
-	 * Private Constructor
-	 */
 	private LoggerUtil() {
 	}
 
-	/**
-	 * The payU default logger
-	 */
-	private static final Logger LOGGER = Logger.getAnonymousLogger();
 
-	/**
-	 * The logger date format
-	 */
-	private static final String DATE_FORMAT = "yyyy-MM-dd HH:mm:ss";
-
-	// Configure the formatter and handler
-	static {
-
-		LOGGER.setUseParentHandlers(false);
-
-		for (Handler handler : LOGGER.getHandlers()) {
-			LOGGER.removeHandler(handler);
-		}
-
-		ConsoleHandler consoleHandler = new ConsoleHandler();
-		consoleHandler.setFormatter(new PayUFormatter());
-		LOGGER.addHandler(consoleHandler);
-
-		LOGGER.setLevel(Level.INFO);
-
+	public static void info(org.slf4j.Logger logger, String message) {
+		// TODO Auto-generated method stub
+		logger.info(message);
+		
 	}
-
-	/**
-	 * logs info messages
-	 *
-	 * @param message
-	 *            The info message to log
-	 * @param parameters
-	 *            The parameters to the log
-	 */
-	public static void info(String message, Object... parameters) {
-		LOGGER.log(Level.INFO, message, parameters);
+	public static void info(org.slf4j.Logger logger, String message,Throwable t) {
+		// TODO Auto-generated method stub
+		logger.info(message,t);
+		
 	}
-
-	/**
-	 * logs debug messages
-	 *
-	 * @param message
-	 *            The debug message to log
-	 * @param parameters
-	 *            The parameters to the log
-	 */
-	public static void debug(String message, Object... parameters) {
-		LOGGER.log(Level.FINER, message, parameters);
+	
+	public static void debug(org.slf4j.Logger logger, String message) {
+		// TODO Auto-generated method stub
+		logger.info(message);
+		
 	}
-
-	/**
-	 * logs error messages
-	 *
-	 * @param message
-	 *            The error message to log
-	 * @param parameters
-	 *            The parameters to the log
-	 */
-	public static void error(String message, Throwable exception) {
-		LOGGER.log(Level.SEVERE, message, exception);
+	public static void debug(org.slf4j.Logger logger, String message,Throwable t) {
+		// TODO Auto-generated method stub
+		logger.info(message,t);
+		
 	}
-
-	/**
-	 * logs warning messages
-	 *
-	 * @param message
-	 *            The warning message to log
-	 * @param parameters
-	 *            The parameters to the log
-	 */
-	public static void warning(String message, Object... parameters) {
-		LOGGER.log(Level.WARNING, message, parameters);
+	
+	public static void error(org.slf4j.Logger logger, String message) {
+		// TODO Auto-generated method stub
+		logger.error(message);
+		
 	}
-
-	/**
-	 * The default payU log formatter
-	 *
-	 * @author PayU Latam
-	 * @since 1.0.0
-	 * @version 1.0.0, 21/08/2013
-	 */
-	private static class PayUFormatter extends Formatter {
-
-		/*
-		 * (non-Javadoc)
-		 *
-		 * @see java.util.logging.Formatter#format(java.util.logging.LogRecord)
-		 */
-		@Override
-		public String format(LogRecord record) {
-
-			return new StringBuilder(
-					new SimpleDateFormat(DATE_FORMAT).format(new Date(record
-							.getMillis()))).append(SPACE_STRING)
-					.append(Thread.currentThread().getName())
-					.append(LINE_BREAK)
-					.append(formatMessage(record))
-					.append(LINE_SEPARATOR).toString();
-		}
+	public static void error(org.slf4j.Logger logger, String message,Throwable t) {
+		// TODO Auto-generated method stub
+		logger.error(message,t);
+		
 	}
-
-	/**
-	 * Updates the log level
-	 *
-	 * @param level
-	 *            the new log level
-	 */
-	public static void setLogLevel(Level level) {
-
-		for (Handler handler : LOGGER.getHandlers()) {
-			LOGGER.removeHandler(handler);
-		}
-
-		ConsoleHandler consoleHandler = new ConsoleHandler();
-		consoleHandler.setLevel(level);
-		consoleHandler.setFormatter(new PayUFormatter());
-		LOGGER.addHandler(consoleHandler);
-
-		LOGGER.setLevel(level);
+	
+	public static void warning(org.slf4j.Logger logger, String message) {
+		// TODO Auto-generated method stub
+		logger.warn(message);
+		
 	}
-
-	/**
-	 * Adds a custom logger handler
-	 *
-	 * @param handler
-	 */
-	public static void addHandler(Handler handler) {
-		LOGGER.addHandler(handler);
+	public static void warning(org.slf4j.Logger logger, String message,Throwable t) {
+		// TODO Auto-generated method stub
+		logger.warn(message,t);
+		
 	}
 	
 }
