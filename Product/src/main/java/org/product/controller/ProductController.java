@@ -26,7 +26,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api")
 public class ProductController extends BaseController {
 	private static final Logger LOGGER = LoggerFactory.getLogger(ProductController.class);
-	private final Logger logger = LoggerFactory.getLogger(this.getClass().getName());
+	private final Logger logger = LoggerFactory.getLogger(this.getClass());
 	@Autowired
     ProductService productService;
 //	@Autowired
@@ -41,7 +41,7 @@ public class ProductController extends BaseController {
         LOGGER.info("This is INFO");
         LOGGER.warn("This is WARN");
         LOGGER.error("This is ERROR");
-        LoggerUtil.info("list product of cassandra databse");
+        LoggerUtil.info(logger,"list product of cassandra databse");
        // if(1==1)throw new BadRequestException();             
 		return productService.getAllProduct();
 	}

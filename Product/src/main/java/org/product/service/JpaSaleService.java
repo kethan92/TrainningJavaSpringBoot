@@ -1,6 +1,7 @@
 package org.product.service;
 
 import java.util.List;
+import java.util.UUID;
 
 import org.product.jpaModel.Sales;
 import org.product.jpaModel.SalesPK;
@@ -47,16 +48,20 @@ public class JpaSaleService {
 	
 	public void addSaleTaltol(List<org.product.model.Sales> listSales) {
 		SalesPK salesId=null;
+		UUID uuid=null;
 		for(org.product.model.Sales sales: listSales) {
+			uuid=UUID.randomUUID();
 			salesId=new SalesPK(sales.getProduct_id(),sales.getTime_id(),sales.getLocation_id());
-			if(!jpaSaleRepository.existsById(salesId)) {
+			
 				Sales sa=new Sales();
+				sa.setSaleId(uuid);
 				sa.setSalesPK(salesId);
+			
 				sa.setDollars(sales.getDollars());
 				
 				//jpaSaleRepository.save(sa);
 				jpaSaleRepository.save(sa);
-			}
+			
 			
 		}
 		return;

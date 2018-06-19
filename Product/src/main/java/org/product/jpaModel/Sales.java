@@ -9,10 +9,13 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.Date;
+import java.util.UUID;
+
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
@@ -39,7 +42,20 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 public class Sales implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    @EmbeddedId
+    
+    @Id
+    @Column(name="sale_id")
+    private UUID saleId;
+    
+   public UUID getSaleId() {
+		return saleId;
+	}
+
+	public void setSaleId(UUID saleId) {
+		this.saleId = saleId;
+	}
+
+	//@EmbeddedId
     protected SalesPK salesPK;
     @Column(name = "dollars")
     private BigDecimal dollars;
@@ -51,12 +67,15 @@ public class Sales implements Serializable {
     private Date modifiedAt;
     @JoinColumn(name = "location_id", referencedColumnName = "location_id", insertable = false, updatable = false)
     @ManyToOne(optional = false,fetch = FetchType.LAZY)
+    @JsonIgnore
     private Location location;
     @JoinColumn(name = "product_id", referencedColumnName = "product_id", insertable = false, updatable = false)
     @ManyToOne(optional = false,fetch = FetchType.LAZY)
+    @JsonIgnore
     private Product product;
     @JoinColumn(name = "time_id", referencedColumnName = "time_id", insertable = false, updatable = false)
     @ManyToOne(fetch = FetchType.LAZY)
+    @JsonIgnore
     private Time time;
 
     public Sales() {
