@@ -57,11 +57,14 @@ public class MainController extends BaseController {
  
         // Sau khi user login thanh cong se co principal
         String userName = principal.getName();
+        LoggerUtil.info(logger, "get username ="+userName);
  
         System.out.println("User Name: " + userName);
  
         User loginedUser = (User) ((Authentication) principal).getPrincipal();
  
+        LoggerUtil.info(logger, "get loginedUser = "+loginedUser);
+        
         String userInfo = WebUtils.toString(loginedUser);
         model.addAttribute("userInfo", userInfo);
  

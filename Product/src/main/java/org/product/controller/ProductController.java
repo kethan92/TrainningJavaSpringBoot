@@ -2,10 +2,11 @@ package org.product.controller;
 
 import java.util.ArrayList;
 import java.util.Date;
+//import java.util.Date;
 import java.util.List;
 
-import org.eclipse.persistence.jpa.jpql.parser.DateTime;
-import org.product.exception.BadRequestException;
+import org.joda.time.DateTime;
+import org.product.exception.NotFoundException;
 import org.product.jpaModel.Product;
 import org.product.logger.LoggerUtil;
 //import org.product.model.Product;
@@ -16,16 +17,17 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 //import org.product.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+@Controller
 @RestController
 @RequestMapping("/api")
+@ResponseBody
 public class ProductController extends BaseController {
 	private static final Logger LOGGER = LoggerFactory.getLogger(ProductController.class);
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());
@@ -44,7 +46,11 @@ public class ProductController extends BaseController {
         LOGGER.warn("This is WARN");
         LOGGER.error("This is ERROR");
         LoggerUtil.info(logger,"list product of cassandra databse");
-       // if(1==1)throw new BadRequestException();             
+       // if(1==1)throw new BadRequestException();   
+        List<org.product.model.Product> listProduct=productService.getAllProduct();
+        if(listProduct==null) {
+        	throw new NotFoundException("list product are not there");
+        }
 		return productService.getAllProduct();
 	}
 	
@@ -72,7 +78,7 @@ public class ProductController extends BaseController {
 	//Import data into postgresql
 	
 	@RequestMapping(value="/productsJPA/all",method=RequestMethod.POST)
-	public List<org.product.model.Product> saveAllProduct(){
+	public @ResponseBody List<Product> saveAllProduct(){
 		List<org.product.model.Product> getAllProduct = productService.getAllProduct();
 		System.out.println("================================================================");
 		System.out.println(getAllProduct.size());
@@ -88,12 +94,14 @@ public class ProductController extends BaseController {
 			productJPA.setClass1(product.getClassd());
 			Date date = new java.util.Date(System.currentTimeMillis());
 			//DateTime dt=new DateTime(date.getTime());
+			//productJPA.setCreateAt(new DateTime());
+			//productJPA.setModifiedAt(new DateTime());
 			productJPA.setCreateAt(date);
 			productJPA.setModifiedAt(date);
 			//productJPA.setItem(product.getItem());
 			jpaProductService.save(productJPA);
 		}
-		return productService.getAllProduct();
+		return jpaProductService.getAllProduct();
 		
 	}
 	
