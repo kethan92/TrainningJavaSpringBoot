@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog 
+  xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+  xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+  xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd
+        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
+
+
+<changeSet author="nkthan" id="updateTypeProduct2">
+     <modifyDataType 
+            columnName="create_at"
+            newDataType="TIMESTAMP WITH TIME ZONE"
+            schemaName="public"
+            tableName="product"/>
+      <modifyDataType 
+            columnName="modified_at"
+            newDataType="TIMESTAMP WITH TIME ZONE"
+            schemaName="public"
+            tableName="product"/>
+       <modifyDataType 
+            columnName="create_at"
+            newDataType="TIMESTAMP WITH TIME ZONE"
+            schemaName="public"
+            tableName="sales"/>
+      <modifyDataType 
+            columnName="modified_at"
+            newDataType="TIMESTAMP WITH TIME ZONE"
+            schemaName="public"
+            tableName="sales"/>
+     <modifyDataType 
+            columnName="create_at"
+            newDataType="TIMESTAMP WITH TIME ZONE"
+            schemaName="public"
+            tableName="time"/>
+      <modifyDataType 
+            columnName="modified_at"
+            newDataType="TIMESTAMP WITH TIME ZONE"
+            schemaName="public"
+            tableName="time"/>
+     <modifyDataType 
+            columnName="create_at"
+            newDataType="TIMESTAMP WITH TIME ZONE"
+            schemaName="public"
+            tableName="location"/>
+      <modifyDataType 
+            columnName="modified_at"
+            newDataType="TIMESTAMP WITH TIME ZONE"
+            schemaName="public"
+            tableName="location"/>
+            
+</changeSet>
+
+</databaseChangeLog>
