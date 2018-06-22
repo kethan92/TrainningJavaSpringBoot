@@ -25,7 +25,12 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import org.product.util.DateTimeZoneDeserializer;
+import org.product.util.DateTimeZoneSerializer;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
 /**
  *
@@ -61,9 +66,13 @@ public class Sales implements Serializable {
     private BigDecimal dollars;
     @Column(name = "create_at")
     @Temporal(TemporalType.TIMESTAMP)
+    @JsonSerialize(using=DateTimeZoneSerializer.class)
+    @JsonDeserialize(using=DateTimeZoneDeserializer.class)
     private Date createAt;
     @Column(name = "modified_at")
     @Temporal(TemporalType.TIMESTAMP)
+    @JsonSerialize(using=DateTimeZoneSerializer.class)
+    @JsonDeserialize(using=DateTimeZoneDeserializer.class)
     private Date modifiedAt;
     @JoinColumn(name = "location_id", referencedColumnName = "location_id", insertable = false, updatable = false)
     @ManyToOne(optional = false,fetch = FetchType.LAZY)

@@ -27,7 +27,12 @@ import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
+import org.product.util.DateTimeZoneDeserializer;
+import org.product.util.DateTimeZoneSerializer;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
 /**
  *
@@ -62,9 +67,13 @@ public class Time implements Serializable {
     private Integer year;
     @Column(name = "create_at")
     @Temporal(TemporalType.TIMESTAMP)
+    @JsonSerialize(using=DateTimeZoneSerializer.class)
+    @JsonDeserialize(using=DateTimeZoneDeserializer.class)
     private Date createAt;
     @Column(name = "modified_at")
     @Temporal(TemporalType.TIMESTAMP)
+    @JsonSerialize(using=DateTimeZoneSerializer.class)
+    @JsonDeserialize(using=DateTimeZoneDeserializer.class)
     private Date modifiedAt;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "time",fetch = FetchType.LAZY)
     private Collection<Sales> salesCollection;
