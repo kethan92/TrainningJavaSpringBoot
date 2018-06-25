@@ -63,6 +63,13 @@ public class Location {
 	public void setModified_at(Timestamp modified_at) {
 		this.modified_at = modified_at;
 	}
+
+	public Location(UUID location_id, String city, String country) {
+		super();
+		this.location_id = location_id;
+		this.city = city;
+		this.country = country;
+	}
 	
 	
 

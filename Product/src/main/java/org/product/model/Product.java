@@ -91,6 +91,14 @@ public class Product {
 	public void setClassd(String classd) {
 		this.classd = classd;
 	}
+
+	public Product(UUID product_id, String classd, String inventory, Integer item) {
+		super();
+		this.product_id = product_id;
+		this.classd = classd;
+		this.inventory = inventory;
+		this.item = item;
+	}
 	
 
 	
