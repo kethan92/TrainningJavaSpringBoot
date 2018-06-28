@@ -33,7 +33,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 //Integration Testing in Spring
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = ProductApplication.class)
+//@ContextConfiguration(classes = MyApplicationTest.class)
 @SpringBootTest
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class ProductControllerTests {

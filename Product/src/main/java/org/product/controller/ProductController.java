@@ -6,6 +6,7 @@ import java.util.Date;
 import java.util.List;
 
 import org.joda.time.DateTime;
+import org.product.exception.InternalErrorException;
 import org.product.exception.NotFoundException;
 import org.product.jpaModel.Product;
 import org.product.logger.LoggerUtil;
@@ -17,6 +18,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 //import org.product.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -31,6 +35,9 @@ import org.springframework.web.bind.annotation.RestController;
 public class ProductController extends BaseController {
 	private static final Logger LOGGER = LoggerFactory.getLogger(ProductController.class);
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());
+	
+	
+
 	@Autowired
     ProductService productService;
 //	@Autowired
@@ -39,24 +46,21 @@ public class ProductController extends BaseController {
 	JpaProductService jpaProductService;
 	
 	@RequestMapping(value = "/products/all", method = RequestMethod.GET)
-	public List<org.product.model.Product> showAllProdcut() {
-		LOGGER.trace("This is TRACE");
-        LOGGER.debug("This is DEBUG");
-        LOGGER.info("This is INFO");
-        LOGGER.warn("This is WARN");
-        LOGGER.error("This is ERROR");
+	@PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_ADMIN')")
+	public ResponseEntity<List<org.product.model.Product>> showAllProdcut() {
+		
         LoggerUtil.info(logger,"list product of cassandra databse");
        // if(1==1)throw new BadRequestException();   
         List<org.product.model.Product> listProduct=productService.getAllProduct();
-        if(listProduct==null) {
+        if(listProduct.size()==0) {
         	throw new NotFoundException("list product are not there");
         }
-		return productService.getAllProduct();
+		return new ResponseEntity<List<org.product.model.Product>>(productService.getAllProduct(),HttpStatus.OK);
 	}
 	
 	@RequestMapping(value = "/products/{item}", method = RequestMethod.GET)
-	public List<org.product.model.Product> getProductByItem(@PathVariable("item") int item) {
-		return productService.getProductByItem(item);
+	public ResponseEntity<List<org.product.model.Product>> getProductByItem(@PathVariable("item") int item) {
+		return new ResponseEntity<List<org.product.model.Product>>(productService.getProductByItem(item),HttpStatus.OK);
 	}
 //
 ////	@Auditable(action = EventSeriesTypeEnum.CREATE, entityType = EntityTypeEnum.ORGANIZATION)
@@ -72,13 +76,17 @@ public class ProductController extends BaseController {
 //    	return productService.addProduct(product);
 //	}
 	@RequestMapping(value = "/products", method = RequestMethod.GET)
-	public List<Product> showAll() {
-		return jpaProductService.getAllProduct();
+	public ResponseEntity<List<Product>> showAll() {
+		List<Product> listProduct=jpaProductService.getAllProduct();
+		if(listProduct.size()==0) {
+        	throw new NotFoundException("list product are not there");
+        }
+		return new ResponseEntity<List<Product>>(listProduct,HttpStatus.OK);
 	}
 	//Import data into postgresql
-	
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@RequestMapping(value="/productsJPA/all",method=RequestMethod.POST)
-	public @ResponseBody List<Product> saveAllProduct(){
+	public ResponseEntity<?> saveAllProduct(){
 		List<org.product.model.Product> getAllProduct = productService.getAllProduct();
 		System.out.println("================================================================");
 		System.out.println(getAllProduct.size());
@@ -101,7 +109,7 @@ public class ProductController extends BaseController {
 			//productJPA.setItem(product.getItem());
 			jpaProductService.save(productJPA);
 		}
-		return jpaProductService.getAllProduct();
+		return new ResponseEntity(HttpStatus.OK);
 		
 	}
 	

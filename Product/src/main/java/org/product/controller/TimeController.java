@@ -8,6 +8,9 @@ import org.product.service.JpaTimeService;
 //import org.product.service.LocationService;
 import org.product.service.TimeService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -26,13 +29,13 @@ public class TimeController {
 	
 	
 	@RequestMapping(value = "/times", method = RequestMethod.GET)
-	public List<Time> showAllTime(){
-		return this.timeService.getAllTime();
+	public ResponseEntity<List<Time>> showAllTime(){
+		return new ResponseEntity<List<Time>>(timeService.getAllTime(),HttpStatus.OK);
 	}
 	
 	@RequestMapping(value = "/timesJPA", method = RequestMethod.GET)
-	public List<org.product.jpaModel.Time> showAllLocationJPA(){
-		return this.jpaTimeService.getAllTime();
+	public ResponseEntity<List<org.product.jpaModel.Time>> showAllLocationJPA(){
+		return new ResponseEntity<List<org.product.jpaModel.Time>>(jpaTimeService.getAllTime(),HttpStatus.OK);
 	}
 	
 	
@@ -47,8 +50,9 @@ public class TimeController {
 //	}
 	
 	// IMPORT DATA FROM CASSANDRA TO POSTGRESQL
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@RequestMapping(value="/times/all", method = RequestMethod.POST)
-	public void addAllTime(){
+	public ResponseEntity<?> addAllTime(){
 		List<Time> listAllTime = timeService.getAllTime();
 		System.out.println("================================================================");
 		System.out.println(listAllTime.size());
@@ -64,5 +68,6 @@ public class TimeController {
 			jpaTimeService.save(TimeJPA);
 		}
 		//return listLocationJPA;
+		return new ResponseEntity(HttpStatus.OK);
 	}
 }

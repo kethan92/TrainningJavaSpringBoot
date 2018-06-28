@@ -7,6 +7,9 @@ import org.product.model.Location;
 import org.product.service.JpaLocationService;
 import org.product.service.LocationService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -25,29 +28,30 @@ public class LocationController extends BaseController {
 	
 	
 	@RequestMapping(value = "/locations", method = RequestMethod.GET)
-	public List<Location> showAllLocation(){
-		return this.locationService.getAllLocation();
+	public ResponseEntity<List<Location>> showAllLocation(){
+		return new ResponseEntity<List<Location>>(locationService.getAllLocation(),HttpStatus.OK);
 	}
 	
 	@RequestMapping(value = "/locationsJPA", method = RequestMethod.GET)
-	public List<org.product.jpaModel.Location> showAllLocationJPA(){
-		return this.jpaLocationService.getAllLocation();
+	public ResponseEntity<List<org.product.jpaModel.Location>> showAllLocationJPA(){
+		return new ResponseEntity<List<org.product.jpaModel.Location>>(jpaLocationService.getAllLocation(),HttpStatus.OK);
 	}
 	
-	
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@RequestMapping(value="/locations", method = RequestMethod.POST)
-	public Location addLocation(@RequestBody Location location){
+	public ResponseEntity<Location> addLocation(@RequestBody Location location){
 		if(location==null) {
 			return null;
 		}
 		else {
-			return locationService.addLocation(location);
+			return new ResponseEntity<Location>(locationService.addLocation(location),HttpStatus.OK);
 		}
 	}
 	
 	// IMPORT DATA FROM CASSANDRA TO POSTGRESQL
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@RequestMapping(value="/locations/all", method = RequestMethod.POST)
-	public void addAllLocation(){
+	public ResponseEntity<?> addAllLocation(){
 		List<Location> listAllLocation = locationService.getAllLocation();
 		System.out.println("================================================================");
 		System.out.println(listAllLocation.size());
@@ -60,7 +64,9 @@ public class LocationController extends BaseController {
 			
 			//productJPA.setItem(product.getItem());
 			jpaLocationService.save(LocationJPA);
+			
 		}
+		return new ResponseEntity(HttpStatus.OK);
 		//return listLocationJPA;
 	}
 }

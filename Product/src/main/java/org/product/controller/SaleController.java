@@ -11,6 +11,9 @@ import org.product.service.JpaSaleService;
 import org.product.service.LocationService;
 import org.product.service.SaleService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -29,22 +32,23 @@ public class SaleController {
 	LocationService locationService;
 	
 	@RequestMapping(value = "/sales", method = RequestMethod.GET)
-	public List<Sales> showAllSale(){
-		return this.saleService.getAllSales();
+	public ResponseEntity<List<Sales>> showAllSale(){
+		return new ResponseEntity<List<Sales>>(saleService.getAllSales(),HttpStatus.OK);
 	}
 	
-	
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@RequestMapping(value="/sales/all", method=RequestMethod.POST)
-	public void saveAllSales(){
+	public ResponseEntity<?> saveAllSales(){
 //		SalesPK salesId=null;
 		List<Sales> getAllSales = saleService.getAllSales();
 		
 		jpaSaleService.addSaleTaltol(getAllSales);
+		return new ResponseEntity(HttpStatus.OK);
 		
 	}
 	// Get sale from PostGre
 	@RequestMapping(value = "/salesPostgresql", method = RequestMethod.GET)
-	public List<org.product.jpaModel.Sales> show(){
-		return this.jpaSaleService.getAllSales();
+	public ResponseEntity<List<org.product.jpaModel.Sales>> show(){
+		return new ResponseEntity<List<org.product.jpaModel.Sales>>(jpaSaleService.getAllSales(),HttpStatus.OK);
 	}
 }

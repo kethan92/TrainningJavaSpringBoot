@@ -2,17 +2,22 @@ package org.product.controller;
 
 import org.product.exception.BadRequestException;
 import org.product.exception.InternalErrorException;
+
+import java.util.Map;
+
+import org.product.exception.*;
 import org.product.exception.NotAuthenticatedException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
-import javassist.NotFoundException;
+
 
 public class BaseController {
 	
 	@ExceptionHandler(NotFoundException.class)
 	public ResponseEntity<?> notFoundExceptionHandler(NotFoundException ex) {
+		//Map<String, String> errors = "loi";
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());
     }
 
