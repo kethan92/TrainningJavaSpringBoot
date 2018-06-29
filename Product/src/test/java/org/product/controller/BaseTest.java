@@ -3,6 +3,7 @@ package org.product.controller;
 import java.lang.reflect.Field;
 import java.util.UUID;
 
+import org.cassandraunit.spring.CassandraDataSet;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.runner.RunWith;
@@ -20,18 +21,19 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.util.ReflectionUtils;
 
+//@CassandraDataSet(keyspace = "than")
 @RunWith(SpringRunner.class)
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT,classes = {MyApplicationTest.class})
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT,classes = {ProductApplication.class})
 public abstract class BaseTest {
 
 	protected TestRestTemplate restTemplate = new TestRestTemplate();
 	
-private final Logger logger = LoggerFactory.getLogger(this.getClass());
+	private final Logger logger = LoggerFactory.getLogger(this.getClass());
 	
 	@LocalServerPort
 	private int port;
 		
-	private String baseURL;
+	protected String baseURL;
 	
 	@Autowired
     private JdbcTemplate jdbcTemplate;
@@ -51,41 +53,9 @@ private final Logger logger = LoggerFactory.getLogger(this.getClass());
 		//eateLocation();
 
 	}
-	@After
-	public void reset() {
-		//clearCachedRoles();
-	}
 	
 	
-//	private void clearCachedRoles() {
-//		// TODO Auto-generated method stub
-//		Field cachedRolesField = ReflectionUtils.findField(RoleService.class, "cachedRoles");
-//        
-//        if (cachedRolesField != null) {
-//            boolean accessible = cachedRolesField.isAccessible();
-//            cachedRolesField.setAccessible(true);
-//            
-//            Map<String, Role> map = (Map<String, Role>) cachedRolesField.get(roleService);
-//            map.clear();
-//            
-//            cachedRolesField.setAccessible(accessible);
-//        }
-//	}
-	protected void createLocationForJPA() {
-		Location location=new Location();
-		location.setCity("Lao Cai");
-		location.setCountry("Viet Nam");
-		location.setLocationId(UUID.randomUUID());	
-		jpaLocationRepository.save(location);
-	}
 	
-	protected void createLocationForCassandra() {
-		org.product.model.Location loca=new org.product.model.Location();
-		loca.setCity("Lao Cai");
-		loca.setCountry("Viet Nam");
-		loca.setLocation_id(UUID.randomUUID());
-		
-		locationRepository.save(loca);
-	}
+
 	
 }

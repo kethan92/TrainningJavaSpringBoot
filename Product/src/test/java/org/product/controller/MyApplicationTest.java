@@ -40,7 +40,7 @@ import com.zaxxer.hikari.HikariDataSource;
 //@EnableJpaRepositories(basePackages = "org.product.persistence.dao")
 @PropertySource("application.properties")
 @EnableTransactionManagement
-public class MyApplicationTest extends ProductApplication {
+public class MyApplicationTest {
 //	
 //	@Autowired
 //    private Environment env;

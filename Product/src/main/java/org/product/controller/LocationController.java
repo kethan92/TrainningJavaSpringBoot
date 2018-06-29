@@ -69,4 +69,15 @@ public class LocationController extends BaseController {
 		return new ResponseEntity(HttpStatus.OK);
 		//return listLocationJPA;
 	}
+	
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
+	@RequestMapping(value="/locationsJPA", method = RequestMethod.POST)
+	public ResponseEntity<org.product.jpaModel.Location> addLocationJPA(@RequestBody org.product.jpaModel.Location location){
+		if(location==null) {
+			return null;
+		}
+		else {
+			return new ResponseEntity<org.product.jpaModel.Location>(jpaLocationService.save(location),HttpStatus.OK);
+		}
+	}
 }
